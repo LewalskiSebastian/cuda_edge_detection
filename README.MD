@@ -1,4 +1,4 @@
-# Laplace
+# CUDA edge detection
 
 ## Wymagania
 
