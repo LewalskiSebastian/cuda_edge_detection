@@ -19,21 +19,23 @@ sh build.sh
 lub
 
 ```bat
-build.bat
+build
 ```
 
 Może być potrzebne zmienienie ścieżki do używanego kompilatora w skrypcie budującym.
+
+Program zostanie umieszczony w katalogu bin.
 
 ## Uruchomienie
 
 Program współpracuje z plikami o rozszerzeniach BMP i PPM. Formaty JPG oraz PNG wymagałyby użycia dodatkowej biblioteki.
 
 ```bash
-./laplace /path/to/input/file.bmp /path/to/output/file.ppm
+./bin/laplace /path/to/input/file.bmp /path/to/output/file.ppm
 ```
 
 lub
 
 ```bat
-laplace /path/to/input/file.bmp /path/to/output/file.ppm
+bin\laplace path\to\input\file.bmp path\to\output\file.ppm
 ```
