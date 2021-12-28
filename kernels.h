@@ -1,2 +1,2 @@
 // Właściwe operacje na karcie graficznej
-void filter(unsigned char *h_wsk, unsigned char *h_bin, int szerokosc, int wysokosc, long int rozmiar);
+void filter(unsigned char *host_pointer, unsigned char *host_img, int width, int height, long int size);

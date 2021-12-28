@@ -1,5 +1,7 @@
 # CUDA edge detection
 
+Program umożliwia wykrywanie krawędzi na obrazach z wykorzystaniem filtru Laplace'a z 8-krotnym wzmocnieniem środkowego piksela.
+
 ## Wymagania
 
 nvcc, kompilator wspierający C++11, karta graficzna nVidia obłsugująca CUDA

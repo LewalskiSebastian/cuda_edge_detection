@@ -29,6 +29,7 @@ int main(int argc, const char** argv) {
 	const char* outputFile = argv[2];
 
 	// Podanie ścieżki do biblioteki magick, aby wczytać jpg
+	// Jeżeli posiada się odpowiednią bibliotekę można odkomentować
 	// cimg::imagemagick_path("D:\\CUDAprograms\\ImageMagick-7.0.9-Q16\\magick.exe");
 
 	// Wczytanie obrazu oraz tworzenie pomocniczych obrazów
@@ -38,7 +39,7 @@ int main(int argc, const char** argv) {
 		  imgG(image.width(), image.height(), 1, 3, 0),
 		  imgB(image.width(), image.height(), 1, 3, 0);
  
-	// Dla każdego piksela obrazu
+	// Konwersja do sklai szarości dla każdego piksela obrazu
 	cimg_forXY(image, x, y) {
 		imgR(x, y, 0, 0) = image(x, y, 0, 0),	// Czerwony kanał
 		imgG(x, y, 0, 1) = image(x, y, 0, 1),	// Zielony kanał
@@ -54,10 +55,7 @@ int main(int argc, const char** argv) {
 		src(x, y, 0, 0) = grayValueWeight;
 	}
 
-	// TODO: Pozbyć się tego resize na sztywno
-	// src.resize(szer, wys);
-	src.resize(512, 512);
-	// Zapisanie szerokosci i wysokosci obrazka
+	// Zapisanie szerokosci, wysokosci i rozmiaru obrazka
 	int width = src.width();
 	int height = src.height();
 	unsigned long int size = src.size();
@@ -68,15 +66,17 @@ int main(int argc, const char** argv) {
 	CImg<unsigned char> bin(width, height, 1, 1);
 	unsigned char *h_bin = bin.data();
 
+	// Właściwe operacje na GPU
 	filter(h_ptr, h_bin, width, height, size);
 
-	// bin.normalize(0, 255);
+	// bin.normalize(0, 255); //Normalizacja niepotrzebna
 	bin.save(outputFile);
 
 	// Resize tylko po to aby zmieściło się na ekranie
 	image.resize(DIPLAY_SIZE, DIPLAY_SIZE);
 	bin.resize(DIPLAY_SIZE, DIPLAY_SIZE);
 
+	// Wyświetlenie wyników
 	CImgDisplay inputDisp(image, "Obraz wejsciowy");
 	CImgDisplay outputDisp(bin, "Obraz wyjsciowy");
 	while (!outputDisp.is_closed() && inputDisp.is_closed()) {
@@ -84,6 +84,7 @@ int main(int argc, const char** argv) {
 		inputDisp.wait();
 	}
 
+	// Koniec
 	cout << "Naciśnij 'Enter' aby zakończyć";
 	cin.get();
 
