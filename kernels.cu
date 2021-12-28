@@ -42,7 +42,7 @@ void filter(unsigned char *h_wsk, unsigned char *h_bin, int szerokosc, int wysok
 
 	//cudaDeviceSynchronize();
 
-    // Stworzenie wskaźników na piksele na device
+	// Stworzenie wskaźników na piksele na device
 	unsigned char *d_wsk;
 	unsigned char *d_bin;
 
@@ -60,18 +60,18 @@ void filter(unsigned char *h_wsk, unsigned char *h_bin, int szerokosc, int wysok
 	// Pomiar czasu
 	chrono::steady_clock::time_point begin = chrono::steady_clock::now();
 
-    Laplace <<<siatka, bloki>>> (szerokosc, wysokosc, d_wsk, d_bin);
-    cudaDeviceSynchronize();
+	Laplace <<<siatka, bloki>>> (szerokosc, wysokosc, d_wsk, d_bin);
+	cudaDeviceSynchronize();
 
 	// Pomiar czasu
 	chrono::steady_clock::time_point end = chrono::steady_clock::now();
 
 	// Skopiowanie danych z device na host
-    cudaMemcpy(h_bin, d_bin, szerokosc*wysokosc, cudaMemcpyDeviceToHost);
+	cudaMemcpy(h_bin, d_bin, szerokosc*wysokosc, cudaMemcpyDeviceToHost);
 
 	// Zwolnienie pamięci na device
-    cudaFree(d_bin);
-    cudaFree(d_wsk);
+	cudaFree(d_bin);
+	cudaFree(d_wsk);
 
 	// Pomiar czasu ciąŋ dalszy
 	chrono::steady_clock::time_point end_all = chrono::steady_clock::now();
