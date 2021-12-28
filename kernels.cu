@@ -1,11 +1,13 @@
-#include <iostream>
-#include "cuda_runtime.h"
-#include <stdio.h>
-#include <cstring>
-#include <string>
 #include "kernels.h"
-#include <cmath>
+
+#include <cuda_runtime.h>
+
 #include <chrono>
+#include <cmath>
+#include <cstdio>
+#include <cstring>
+#include <iostream>
+#include <string>
 
 using namespace std;
 
@@ -17,7 +19,6 @@ __global__ void Laplace(int width, int height, unsigned char *d_wsk, unsigned ch
 	if (i < width-1 && j < height-1)
 	{
 		unsigned int suma = 0;
-
 
 		unsigned char r = d_wsk[width*j+i];
 		unsigned char r1 = d_wsk[width*(j-1) + i-1];
